@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vnpt.vnptline.ui.activity.ChiaSeActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/md_white"
+        android:orientation="vertical"
+        android:id="@+id/viewShareContent"
+        android:layout_alignParentTop="true">
+
+        <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="12dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="@color/md_grey_800"
+                android:textSize="14sp"
+                android:text="@string/noiDungChiaSe"
+                android:id="@+id/txtThongBaoChiaSe"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/txtHeaderChiaSe"
+                android:layout_below="@+id/txtThongBaoChiaSe"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/md_blue_500"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="@string/chiaSeQua"
+                android:textAllCaps="true"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:paddingBottom="4dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtHeaderChiaSe"
+                android:id="@+id/viewFirstIconShare"
+                android:layout_marginTop="20dp"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/imgFacebook"
+                    android:src="@drawable/icon_facebook"/>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/imgMail"
+                    android:src="@drawable/icon_email"/>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/imgSMS"
+                    android:src="@drawable/icon_sms"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewFirstIconShare"
+                android:id="@+id/viewSecondIconShare"
+                android:layout_marginTop="20dp"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/imgTwitter"
+                    android:src="@drawable/icon_twitter"/>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/imgOther"
+                    android:src="@drawable/icon_other"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <!--</ScrollView>-->
+
+    </LinearLayout>
+</RelativeLayout>

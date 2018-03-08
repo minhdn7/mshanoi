@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/viewPhongNghi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/imgDoAn"
+            android:scaleType="fitXY"
+            android:src="@drawable/mi_tong_trung" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtTenMon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mỳ tôm trứng"
+                android:textColor="@color/md_black"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+                <TextView
+                    android:id="@+id/txtSoKhachPhong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/donGia"
+                    android:textColor="@color/md_grey_800"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/txtGiaDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:text="15.000 VND/bát"
+                    android:textColor="@color/md_orange_800"
+                    android:textSize="16sp" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textColor="@color/md_white"
+                    android:text="@string/chon"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/btnChonDoAn"
+                    android:background="@drawable/bg_button_orange_700"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

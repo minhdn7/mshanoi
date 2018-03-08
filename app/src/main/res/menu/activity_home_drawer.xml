@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_page_2"
+            android:title="Trang chủ" />
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/ic_register_2"
+            android:title="Đăng nhập/Đăng ký" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Giới thiệu" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Cài đặt" />
+    </group>
+
+    <item android:title="Cộng đồng">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Chia sẻ" />
+        </menu>
+    </item>
+
+</menu>

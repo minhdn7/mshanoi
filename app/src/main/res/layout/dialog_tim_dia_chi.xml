@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/viewDialogTimKiem"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        android:weightSum="10">
+        <com.vnpt.vnptline.ui.widget.DelayAutoCompleteTextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="10"
+            android:textSize="14sp"
+            android:textColor="@color/md_grey_800"
+            android:paddingLeft="4dp"
+            android:imeOptions="actionSearch"
+            android:id="@+id/txtSearchLocation"
+            android:background="@drawable/bg_edit_text"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/bg_button_blue_500"
+            android:text="@string/dong"
+            android:textColor="@color/md_white"
+            android:id="@+id/btnDong" />
+    </LinearLayout>
+</LinearLayout>

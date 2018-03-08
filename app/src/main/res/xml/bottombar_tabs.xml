@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_list_ms"
+        icon="@drawable/ic_view_list"
+        title="Danh sách" />
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_view_map"
+        title="Bản đồ" />
+    <tab
+        id="@+id/tab_forums"
+        icon="@drawable/ic_view_comments"
+        title="Thảo luận" />
+    <tab
+        id="@+id/tab_menu"
+        icon="@drawable/ic_menu"
+        title="Menu" />
+</tabs>

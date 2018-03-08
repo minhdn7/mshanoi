@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHeaderDialog"
+                android:textColor="@color/md_grey_800"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:text="Thông báo"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNoiDung"
+            android:layout_margin="8dp"
+            android:textSize="14sp"
+            android:text="Để bảo vệ quý khách thời gian tạo mã tích điểm chỉ trong vòng 3 phút. Vui lòng ấn nút bên dưới nếu quý khách muốn tiếp tục"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/btnTiepTuc"
+            android:background="@drawable/bg_button_corner_left_right_bottom"
+            android:textSize="16sp"
+            android:textColor="@color/md_white"
+            android:text="@string/tiepTuc"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/imgExit"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/ic_exit"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

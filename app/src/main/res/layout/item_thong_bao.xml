@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_white"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:textColor="@color/md_grey_800"
+        android:id="@+id/txtTitleThongBao"
+        android:textStyle="bold"
+        android:text="Ưu đãi giảm giá"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/txtNoiDungThongBao"
+        android:textColor="@color/md_grey_800"
+        android:text="Giảm giá cho toàn bộ khách hàng có sinh nhật trong tháng 1, tặng 5% hóa đơn thanh toán tại tất cả các nhà nghỉ thuộc khu vực Hà Nội"/>
+</LinearLayout>

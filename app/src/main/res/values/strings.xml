@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">Ms Ha Noi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <!--facebook-->
+    <string name="facebook_app_id">335813436910413</string>
+    <string name="fb_login_protocol_scheme">fb335813436910413</string>
+    <!--end-->
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_hone">Trang chủ</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <!--<string name="google_api_key">AIzaSyCFTeK25VWvarn7uGEHRO0yNPzR1YqBpY4</string>-->
+    <!--<string name="google_api_key">AIzaSyA6uBCmRdo4De4N0mkYXBy_pDarHt2S_Jo</string>-->
+
+    <!--error   -->
+    <string name="khongDeTrong">Trường bắt buộc không được để trống</string>
+    <!--end-->
+
+    <!--thông báo-->
+    <string name="thongBaoLogout">Bạn có muốn đăng xuất không?</string>
+    <!--end-->
+
+    <string name="timKiem">Tìm kiếm</string>
+    <string name="maXacThucGuiDen1">Mã xác thực đã được gửi đến</string>
+    <string name="maXacThucGuiDen2">Bạn vui lòng nhập mã để xác thực tài khoản.</string>
+    <string name="loc">Lọc</string>
+    <string name="banDo">Bản đồ</string>
+    <string name="danhSach">Danh sách</string>
+    <string name="chuaCoXepHang">Chưa có xếp hạng</string>
+    <string name="chuaCoDanhGia">Chưa có đánh giá</string>
+    <string name="ngayDem">ngày/đêm</string>
+    <string name="giaVe">Giá vé</string>
+    <string name="traCuu">Tra cứu</string>
+    <string name="locKetQua">Lọc Kết Quả</string>
+    <string name="nhaNghi">Nhà nghỉ</string>
+    <string name="nhaTro">Nhà trọ</string>
+    <string name="khoangGiaPhong">Khoảng giá phòng mỗi đêm</string>
+    <string name="hangDanhGia">Hạng đánh giá</string>
+    <string name="hangSao">Hạng sao</string>
+    <string name="tienNghi">Tiện nghi</string>
+    <string name="loaiHinh">Loại hình</string>
+    <string name="Wifi">Wifi</string>
+    <string name="doUong">Đồ ăn/uống</string>
+    <string name="yeuCauHoTro">Yêu cầu hỗ trợ</string>
+    <string name="giuongDoi">Giường đôi</string>
+    <string name="tuLanh">Tủ lạnh</string>
+    <string name="dieuHoa">Điều hòa</string>
+    <string name="massage">Massage</string>
+    <string name="chamSocSucKhoe">Chăm sóc sức khỏe</string>
+    <string name="loaiHinhNghi">Loại hình nghỉ</string>
+    <string name="datLai">Đặt lại</string>
+    <string name="dat">Đặt</string>
+    <string name="hoanTat">Hoàn tất</string>
+    <string name="soDiDong">Số di động</string>
+    <string name="maOTP">Mã OTP</string>
+    <string name="tenDangNhap">Tên đăng nhập</string>
+    <string name="matKhau">Mật khẩu</string>
+    <string name="matKhauMoi">Mật khẩu mới</string>
+    <string name="nhapLaiMatKhauMoi">Nhập lại mật khẩu mới</string>
+    <string name="soDiDongEmail">Số di động hoặc Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="maXacThuc">Mã xác thực</string>
+    <string name="guiLaiMaXacThuc">Gửi lại mã xác thực?</string>
+    <string name="maXacThucDaGuiDen">Mã xác thực đã được gửi đến</string>
+    <string name="nhapMaXacThuc">. Bạn vui lòng nhập mã để xác thực tài khoản.</string>
+    <string name="dangKy">Đăng ký</string>
+
+    <string name="menu">Menu</string>
+    <string name="dangNhapDangKy">Đăng nhập/ đăng ký, có ngay ưu đãi</string>
+    <string name="xemBinhLuan">Xem tất cả các đánh giá</string>
+    <string name="thuGon">Thu gọn</string>
+    <string name="timNhaNghi">Tìm nhà nghỉ</string>
+    <string name="timNhaTro">Tìm nhà trọ</string>
+    <string name="uUdaiNoiBat">Ưu đãi nổi bật</string>
+    <string name="trangChu">Trang chủ</string>
+    <string name="caiDat">Cài đặt</string>
+    <string name="phanHoi">Phản hồi</string>
+    <string name="lichSu">Lịch sử</string>
+    <string name="moiBanBe">Mời bạn bè</string>
+    <string name="troGiup">Trợ giúp</string>
+    <string name="doiMatKhau">Đổi mật khẩu</string>
+    <string name="FAQ">FAQ</string>
+    <string name="huyTaiKhoan">Hủy tài khoản</string>
+    <string name="thoat">Thoát</string>
+    <string name="datDoAnUong">Đặt đồ ăn uống</string>
+    <string name="dangN">Đặt đồ ăn uống</string>
+    <string name="taiKhoan">Tài khoản</string>
+    <string name="thongBao">Thông báo</string>
+    <string name="diemDen">Điểm đến</string>
+    <string name="dong">Đóng</string>
+    <string name="nhaNghiGanBan">Nhà nghỉ gần bạn</string>
+    <string name="nhaTroGanBan">Nhà trọ gần bạn</string>
+    <string name="chuaCoTinNhanMoi">Chưa có tin nhắn mới</string>
+    <string name="chuaCoDuLieu">Chưa có dữ liệu</string>
+    <string name="dangKyThanhVien">Đăng ký thành viên</string>
+    <string name="deNhanUuDaiTotNhat">Để nhận những ưu đãi tốt nhất</string>
+    <string name="dangNhap">Đăng nhập</string>
+    <string name="nhapEmailPhoneBenDuoi">Nhập email hoặc số di động của bạn bên dưới</string>
+    <string name="tiepTuc">Tiếp tục</string>
+    <string name="danhGia">Đánh giá</string>
+    <string name="tieuDe">Tiêu đề</string>
+    <string name="thongTinDatphong">Thông tin đặt phòng</string>
+    <string name="thongTinThanhToan">Thông tin thanh toán</string>
+    <string name="danhGiaCuaBan">Đánh giá của bạn</string>
+
+    <string name="guiDen">Gửi đến:</string>
+    <string name="chonLoaiDichVu">Chọn loại dịch vụ:</string>
+    <string name="donGia">đơn giá:</string>
+    <string name="maDatPhong">Mã đặt phòng:</string>
+    <string name="soLuongPhongDat">Số lượng phòng đặt:</string>
+    <string name="ngayDat">Ngày đặt:</string>
+    <string name="trangThai">Trạng thái:</string>
+    <string name="maHoaDon">Mã hóa đơn:</string>
+    <string name="tongTien">Tổng tiền:</string>
+    <string name="ngayThanhToan">Ngày thanh toán:</string>
+    <string name="hinhThucThanhToan">Hình thức thanh toán:</string>
+
+    <string name="xepHangSao">Đánh giá hạng sao</string>
+    <string name="xepHangDanhGia">Xếp hạng đánh giá</string>
+    <string name="noiDungDanhGia">Nội dung đánh giá</string>
+    <string name="noiDung">Nội dung</string>
+    <string name="ok">Ok</string>
+    <string name="huy">Hủy</string>
+    <string name="boQua">Bỏ qua</string>
+    <string name="quenMatKhau">Bạn quên mật khẩu?</string>
+    <string name="taiKhoanVnptLine">Bạn chưa có tài khoản VNPT Line?</string>
+    <string name="dangKyNgay"><u>Đăng ký ngay</u></string>
+    <string name="uuDaiDanhRieng">Ưu đãi dành riêng</string>
+    <string name="xemTatCaTinNhanTaiDay">Bạn có thể xem tất cả tin nhắn tại đây.</string>
+    <string name="xemTatCaLichSuDatPhong">Bạn có thể xem tất cả lịch sử đặt phòng tại đây.</string>
+    <string name="nhanThongBao">Nhận thông báo ở mọi nơi.</string>
+    <string name="ngonNgu">Ngôn ngữ</string>
+
+    <string name="tiengViet">Tiếng Việt</string>
+    <string name="tiengAnh">Tiếng Anh</string>
+    <string name="dieuKhoan">Điều khoản &amp; điều kiện</string>
+    <string name="chinhSachBaoMat">Chính sách bảo mật</string>
+    <string name="chiaSe">Chia sẻ</string>
+    <string name="noiDungChiaSe">Chia sẻ ứng dụng VNPT Line để nhận ngay những ưu đãi hấp dẫn</string>
+    <string name="chiaSeQua">Chia sẻ ứng dụng qua:</string>
+
+    <string name="timQuanKaraoke">Tìm quán Karaoke</string>
+    <string name="gui">Gửi</string>
+    <string name="quyenGPS">Ứng dụng cần truy cập GPS để xác định vị trí của bạn 1 cách tốt nhất!</string>
+    <string name="duLieuBaoMat">Dữ liệu của bạn được bảo mật và an toàn!</string>
+    <string name="title_activity_register">Đăng ký thành viên</string>
+    <string name="title_activity_submit_register">Hoàn thành đăng ký</string>
+    <string name="title_activity_binhluan">Đánh giá của khách</string>
+    <string name="title_activity_forgot_password">Quên mật khẩu</string>
+    <string name="title_activity_login">Đăng nhập</string>
+    <string name="title_activity_history">Lịch sử</string>
+    <string name="title_activity_support">Hỗ trợ</string>
+    <string name="title_chi_tiet">Chi tiết nhà nghỉ</string>
+    <string name="title_activity_share">Chia sẻ</string>
+    <string name="title_activity_food">Đặt đồ ăn</string>
+    <string name="title_activity_chon_phong">Danh Sách Phòng</string>
+    <string name="title_activity_find_hotel">Tìm nhà nghỉ</string>
+    <string name="title_activity_otp">Xác thực</string>
+    <string name="title_activity_change_password">Đổi mật khẩu</string>
+    <string name="mieuTa">Miêu tả:</string>
+    <string name="loaiPhong">Loại phòng:</string>
+    <string name="soLuong">Số lượng:</string>
+    <string name="thanhTien">Thành tiền:</string>
+    <string name="thoiGianNhanPhong">Thời gian nhận phòng:</string>
+    <string name="xacThucDangKy">Còn 1 bước nữa! Hãy nhập tên đầy đủ và mật khẩu để đăng nhập vào tài khoản này.</string>
+
+    <string name="xemChiTiet">Xem chi tiết</string>
+    <string name="giaPhongMoiDem">Giá phòng mỗi đêm</string>
+    <string name="chonPhong">Chọn phòng</string>
+    <string name="chon">Chọn</string>
+    <string name="errorPhone">Số điện thoại phải có độ dài từ 10-11 số, bắt đầu bằng số 0 và không bao gồm kí tự đặc biệt</string>
+    <string name="dieuKhoanBaoMat">Bằng việc đăng ký, tôi đồng ý với
+        <font color='blue'><u>các Điều khoản &amp; Điều khiển</u></font> và
+        <font color='blue'><u> Chính sách bảo mật của VNPT Line</u></font>
+    </string>
+    <string name="mieuTaNhaNghi">Vị trí địa lý:
+        Kangaroo Hostel tọa lạc trên con phố nhỏ của quận trung tâm thành phố Hà Nội. Khách sạn cách sân bay Nội Bài 40 km, cách ga Hà Nội 10 phút lái xe. Khách sạn Kangaroo Hostel có vị trí đẹp rất thuận lợi cho việc thăm quan, mua sắm và khám phá Phố Cổ. Khách sạn cách chợ Đồng Xuân nổi tiếng chỉ vài bước chân, và bạn chỉ mất 10 phút để đi bộ tới Hồ Hoàn Kiếm. Khách sạn nằm trong khu vực lân cận giáp ranh các quận, nên du khách chỉ cần bỏ ra một buổi sáng là có thể tham quan gần hết các địa điểm du lịch nổi tiếng của thủ đô. Với vị trí đẹp và thuận tiện,Kangaroo Hostel là điểm dừng chân lý tưởng cho du khách khi đến với Hà Nội.
+
+        Đặc điểm khách sạn :
+        Nếu bạn đang tìm một khách sạn gía rẻ và chất lượng dịch vụ tốt, thì Kangaroo Hostel là một gợi ý tuyệt vời. Dịch vụ hoàn hảo với một khoản ngân sách hạn chế là đặc điểm nổi bật của khách sạn. Kangaroo Hostel là khách sạn mang đẳng cấp 2 sao, nhưng khi tới đây bạn sẽ được trải nghiệm những dịch vụ mang đẳng cấp quốc tế, rất chuyên nghiệp và hiện đại. Với đội ngũ nhân viên chuyên nghiệp luôn sẵn sàng phục vụ. Sự hài lòng của khách hàng chính là động lực và mục tiêu phát triển của khách sạn. Chính vì thế, Kangaroo luôn cam kết mang đến cho khách hàng những dịch vụ có chất lượng tốt nhất.
+
+        Dịch vụ khách sạn :
+        Các phòng nghỉ của Kangaroo Hostel được thiết kế đơn giản mà tinh tế. Mỗi phòng đều được lắp đặt các trang thiết bị hiện đại như: điều hòa, tủ lạnh, mini bar, truyền hình cáp và wifi miễn phí… Phòng tắm được thiết kế với hệ thống bồn tắm và sen vòi riêng. Tiện nghi phòng gồm điện thoại; dịch vụ dọn phòng phục vụ 24/24h; ngoài ra quý vị cũng có thể yêu cầu thêm giường gấp/giường phụ. Những tiện ích hàng đầu dành cho khách bao gồm thu đổi ngoại tệ, truy cập Internet tốc độ cao (có dây) miễn phí, dịch vụ trông giữ, bảo quản hành lý và két an toàn ở quầy lễ tân. Khách sạn còn phục vụ xe đưa đón khách đến sân bay với một khoản phí nhỏ. Ngoài ra, khách sạn còn gợi ý cho du khách những những hoạt động vui chơi giải trí để đảm bảo du khách luôn thấy hứng thú trong kì nghỉ dưỡng.
+
+        Kangaroo Hostel là điểm đến lý tưởng cho du khách khi đến với Hà Nội để kinh doanh hay du lịch.
+
+        Các địa điểm du lịch nổi tiếng:
+        Hồ Hoàn Kiếm là di tích, thắng cảnh nổi tiếng, là niềm tự hào của người Hà Nội cũng như nhân dân cả nước khi hướng về thủ đô thân yêu. Trải qua hàng nghìn năm lịch sử dựng nước và giữ nước, Tháp Rùa vẫn nghiêm trang sừng sững đổ bóng xuống mặt hồ trong xanh. Rảo bước quanh hồ, hít thở không khí trong lành của buổi sớm là cách du khách hòa mình với không gian yên bình nơi Phố Cổ.
+
+        Bên cạnh đó, xung quanh Hồ còn có rất nhiều di tịch lịch sử nổi tiếng như: Cầu Thê Húc, Đền Ngọc Sơn, Tháp Bút, Đền bà Kiệu, Đền vua Lê Thái Tổ, Tháp Hoà Phong…..càng làm tăng thêm giá trị cổ kính của quần thể di tích Hồ Gươm. Khám phá quần thể di tích này giúp ta hiểu thêm về lịch sử xây dựng đất nước của dân tộc Việt Nam. Vào những ngày cuối tuần, khu vực quanh hồ biến thành tuyến phố đi bộ Hoàn Kiếm với nhiều hoạt động giải trí, trò chơi dân gian, biểu diễn nghệ thuật truyền thống vô cùng đặc sắc, chắc chắn là một điểm đến không thể bỏ lỡ của những du khách yêu thích khám phá văn hóa.
+    </string>
+</resources>

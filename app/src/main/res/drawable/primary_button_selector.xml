@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- trang thai button khi press -->
+    <item android:drawable="@color/md_blue_200" android:state_pressed="true"></item>
+    <!-- trang thai button binh thuong -->
+    <item android:drawable="@color/md_blue_500" ></item>
+
+</selector>

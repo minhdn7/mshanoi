@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/txtUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="01656070***"
+            android:textColor="@color/md_grey_700"
+            android:textStyle="bold" />
+
+        <com.willy.ratingbar.ScaleRatingBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:srb_clearRatingEnabled="true"
+            app:srb_isIndicator="true"
+            app:srb_numStars="5"
+            app:srb_rating="4"
+            app:srb_scrollable="true"
+            app:srb_starHeight="15dp"
+            app:srb_starPadding="2dp"
+            app:srb_starWidth="15dp"
+            app:srb_stepSize="0.5"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/md_blue_700"
+        android:id="@+id/txtTieuDe"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:text="Không gian yên tĩnh"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNoiDung"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="6dp"
+        android:textSize="12sp"
+        android:text="Không gian yên tĩnh, tuy gần khu  dân cư nhưng không quá ồn ào, đông đúc như trên phố cổ. Chọn nhà nghỉ này làm điểm nghỉ ngơi là quá hợp lý. Nhân viên không có gì phàn nàn cả. Giá phòng hợp lí với chất lượng."/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/txtThoiGian"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="24 tháng 1 2018"/>
+</LinearLayout>

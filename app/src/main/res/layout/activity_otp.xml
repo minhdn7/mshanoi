@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.OTPActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:id="@+id/txtTitle"
+                android:text="Mã xác thực đã được gửi đến 0912055527. Bạn vui lòng nhập mã để xác thực tài khoản."/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/etSoDiDong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearence.App.TextInputLayout">
+
+            <EditText
+                android:id="@+id/txtCodeOTP"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif"
+                android:hint="@string/maXacThuc"
+                android:inputType="number"
+                android:textColor="@color/md_grey_900"
+                android:textColorHint="@color/md_grey_600"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/gui"
+            android:id="@+id/btnGuiOTP"
+            android:textColor="@color/md_white"
+            android:background="@drawable/bg_button_orange_700"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/md_blue_500"
+            android:textSize="12sp"
+            android:text="@string/guiLaiMaXacThuc"/>
+    </LinearLayout>
+
+</RelativeLayout>
