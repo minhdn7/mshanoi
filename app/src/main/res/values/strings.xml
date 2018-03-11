@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Ms Ha Noi</string>
 
+    <!--<string name="google_api_key">AIzaSyCFTeK25VWvarn7uGEHRO0yNPzR1YqBpY4</string>-->
+
     <!-- TODO: Remove or change this placeholder text -->
     <!--facebook-->
     <string name="facebook_app_id">335813436910413</string>
@@ -194,4 +196,5 @@
 
         Bên cạnh đó, xung quanh Hồ còn có rất nhiều di tịch lịch sử nổi tiếng như: Cầu Thê Húc, Đền Ngọc Sơn, Tháp Bút, Đền bà Kiệu, Đền vua Lê Thái Tổ, Tháp Hoà Phong…..càng làm tăng thêm giá trị cổ kính của quần thể di tích Hồ Gươm. Khám phá quần thể di tích này giúp ta hiểu thêm về lịch sử xây dựng đất nước của dân tộc Việt Nam. Vào những ngày cuối tuần, khu vực quanh hồ biến thành tuyến phố đi bộ Hoàn Kiếm với nhiều hoạt động giải trí, trò chơi dân gian, biểu diễn nghệ thuật truyền thống vô cùng đặc sắc, chắc chắn là một điểm đến không thể bỏ lỡ của những du khách yêu thích khám phá văn hóa.
     </string>
+    <string name="khongXacDinhKhoangCach">Không xác định khoảng cách</string>
 </resources>

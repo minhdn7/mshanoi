@@ -49,10 +49,10 @@ public class DanhSachMsAdapter extends ArrayAdapter<DiaDiemMsResponse> {
             holder = (DanhSachMsAdapter.ViewHolder) convertView.getTag();
         }
         try {
-//            holder.txtUser.setText(getItem(position).getAccount());
-//            holder.txtTieuDe.setText(getItem(position).getTieuDe());
-//            holder.txtNoiDung.setText(getItem(position).getNoiDung());
-//            holder.txtThoiGian.setText(getItem(position).getThoiGian());
+            holder.txtTenQuanMS.setText(getItem(position).getName());
+
+            holder.txtDanhGia.setText(getItem(position).getPoint());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
