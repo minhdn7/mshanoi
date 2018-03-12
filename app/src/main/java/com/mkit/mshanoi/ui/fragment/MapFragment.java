@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -25,8 +27,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,9 +53,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.ui.IconGenerator;
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseFragment;
+import com.mkit.mshanoi.app.utils.PermissionUtils;
 import com.mkit.mshanoi.domain.repository.MapDemoActivityPermissionsDispatcher;
+import com.mkit.mshanoi.ui.activity.HomeActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +68,7 @@ import butterknife.ButterKnife;
 import permissions.dispatcher.NeedsPermission;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 /**
@@ -63,13 +79,13 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
  * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends BaseFragment implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends BaseFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private OnFragmentInteractionListener mListener;
     private SupportMapFragment mapFragment;
     private GoogleMap map;
     private LocationRequest mLocationRequest;
-
+    private HomeActivity homeActivity;
     Location mCurrentLocation;
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
     private long FASTEST_INTERVAL = 5000; /* 5 secs */
@@ -117,35 +133,16 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
         ButterKnife.bind(this, view);
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!isGPSEnabled) {
-            displayPromptForEnablingGPS(this);
-        }
         addControls(view);
+
         return view;
     }
 
-    private void displayPromptForEnablingGPS(MapFragment mapFragment) {
-        // Thong bao chua bat GPS
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Không xác định được vị trí");
-        builder.setMessage("Xin vui lòng bật GPS!");
-        builder.setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getActivity().finish();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(intent, 0);
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     private void addControls(View view) {
 //        mapFragment = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
+        homeActivity = (HomeActivity) getActivity();
 
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -157,7 +154,9 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
         } else {
             Toast.makeText(getActivity(), "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
+
     }
+
 
     private void addMarker(String title, String desCription, LatLng position, int id) {
         IconGenerator iconFactory = new IconGenerator(getActivity());
@@ -174,15 +173,20 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
     public void onLocationChanged(Location location) {
         // GPS may be turned off
         if (location == null) {
+            CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
+            CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
+            map.moveCamera(center);
+            map.animateCamera(zoom);
             return;
         }
 
         // Report to the UI that the location was updated
 
         mCurrentLocation = location;
-
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLatitude()));
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
         map.moveCamera(center);
         map.animateCamera(zoom);
@@ -217,46 +221,7 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    public void getMyLocation() {
 
-        try{
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            map.setMyLocationEnabled(true);
-
-            FusedLocationProviderClient locationClient = getFusedLocationProviderClient(getActivity());
-            //noinspection MissingPermission
-            locationClient.getLastLocation()
-                    .addOnSuccessListener(new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                onLocationChanged(location);
-
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("MapDemoActivity", "Error trying to get last GPS location");
-                            e.printStackTrace();
-                        }
-                    });
-        }catch (Exception ex){
-            Log.e("My Location error: ", ex.toString());
-        }
-
-    }
 
     protected void loadMap(GoogleMap googleMap) {
         map = googleMap;
@@ -266,10 +231,6 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
             map = googleMap;
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-            getMyLocation();
-
-//            MapDemoActivityPermissionsDispatcher.getMyLocationWithPermissionCheck(this);
-//            MapDemoActivityPermissionsDispatcher.startLocationUpdatesWithPermissionCheck(this);
 
             //Initialize Google Play Services
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -284,21 +245,7 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
             } else {
                 map.setMyLocationEnabled(true);
             }
-            getMyLocation();
-            CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(21.028511, 105.804817));
-            CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
-            // setting camera move
-            if (mCurrentLocation != null) {
-                LatLng locationUpdate = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-                performSearchLocation(locationUpdate);
-//                center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
-//                zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
-            }
-
-
-            map.moveCamera(center);
-            map.animateCamera(zoom);
-            // end
+            onLocationChanged(homeActivity.mLastLocation);
         } else {
             Toast.makeText(getActivity(), "Error - Map was null!!", Toast.LENGTH_SHORT).show();
         }
@@ -310,10 +257,6 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
         map.animateCamera(zoom);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
-    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -327,6 +270,8 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
 
     private void addPointer() {
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -342,4 +287,10 @@ public class MapFragment extends BaseFragment implements NavigationView.OnNaviga
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+
+
+
 }

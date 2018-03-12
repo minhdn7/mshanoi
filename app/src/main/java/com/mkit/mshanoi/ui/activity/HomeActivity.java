@@ -1,21 +1,39 @@
 package com.mkit.mshanoi.ui.activity;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.location.Location;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseActivity;
+import com.mkit.mshanoi.app.utils.PermissionUtils;
 import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
 import com.mkit.mshanoi.ui.event.ListMsEvent;
 import com.mkit.mshanoi.ui.fragment.DanhSachMsFragment;
@@ -28,11 +46,16 @@ import com.roughike.bottombar.OnTabSelectListener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class HomeActivity extends BaseActivity {
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+public class HomeActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, ActivityCompat.OnRequestPermissionsResultCallback,
+        PermissionUtils.PermissionResultCallback{
     @BindView(R.id.bottomBar) BottomBar bottomBar;
     @BindView(R.id.contentContainer) FrameLayout contentContainer;
     private MapFragment mapFragment;
@@ -42,6 +65,31 @@ public class HomeActivity extends BaseActivity {
     private FirebaseDatabase mFireBaseDataBase;
     private DatabaseReference mDatabaseReference;
     public List<DiaDiemMsResponse> danhSachDiemMs = new ArrayList<>();
+
+    // permission config
+    private static final String TAG = "MyLocationUsingHelper";
+
+    private final static int PLAY_SERVICES_REQUEST = 1000;
+    private final static int REQUEST_CHECK_SETTINGS = 2000;
+
+    public Location mLastLocation;
+
+    // Google client to interact with Google API
+
+
+
+    private double latitude = 21.028511;
+    private double longitude = 105.804817;
+
+    boolean isPermissionGranted;
+    // list of permissions
+    ArrayList<String> permissions = new ArrayList<>();
+    PermissionUtils permissionUtils;
+
+    // Google client to interact with Google API
+
+    private GoogleApiClient mGoogleApiClient;
+    // end
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +97,7 @@ public class HomeActivity extends BaseActivity {
 
         setTitle("Massage Hà Nội");
         addControls();
+        addGooglePermission();
     }
 
     private void addControls() {
@@ -96,48 +145,154 @@ public class HomeActivity extends BaseActivity {
         fragmentTransaction.commit();
     }
 
-    public void getDataFireBase() {
-        Firebase.setAndroidContext(this);
-        Firebase firebaseRef = new Firebase("https://ms-ha-noi.firebaseio.com/ms ha noi");
-        firebaseRef.child("danh sach").addValueEventListener(new com.firebase.client.ValueEventListener() {
+    /**
+     * Creating google api client object
+     */
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API).build();
+
+        mGoogleApiClient.connect();
+
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(mLocationRequest);
+
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getChildren() != null){
-                    for(DataSnapshot danhSachMs : dataSnapshot.getChildren()){
-                        DiaDiemMsResponse diaDiemMsResponse = new DiaDiemMsResponse();
-                        if(danhSachMs.child("id") != null && danhSachMs.child("id").getValue() != null) {
-                            diaDiemMsResponse.setId(danhSachMs.child("id").getValue().toString());
-                        }
-                        if(danhSachMs.child("name") != null && danhSachMs.child("name").getValue() != null) {
-                            diaDiemMsResponse.setName(danhSachMs.child("name").getValue().toString());
-                        }
-                        if(danhSachMs.child("linkTruyen") != null && danhSachMs.child("linkTruyen").getValue() != null) {
-                            diaDiemMsResponse.setLinkTruyen(danhSachMs.child("linkTruyen").getValue().toString());
-                        }
-                        if(danhSachMs.child("linkAnh") != null && danhSachMs.child("linkAnh").getValue() != null) {
-                            diaDiemMsResponse.setLinkAnh(danhSachMs.child("linkAnh").getValue().toString());
-                        }
-                        if(danhSachMs.child("điểm") != null && danhSachMs.child("điểm").getValue() != null) {
-                            diaDiemMsResponse.setPoint(danhSachMs.child("điểm").getValue().toString());
-                        }
-                        if(danhSachMs.child("long") != null && danhSachMs.child("long").getValue() != null) {
-                            diaDiemMsResponse.setLongTitule(danhSachMs.child("long").getValue().toString());
-                        }
-                        if(danhSachMs.child("lat") != null && danhSachMs.child("lat").getValue() != null) {
-                            diaDiemMsResponse.setLatTitule(danhSachMs.child("lat").getValue().toString());
-                        }
-                        danhSachDiemMs.add(diaDiemMsResponse);
+            public void onResult(LocationSettingsResult locationSettingsResult) {
 
+                final Status status = locationSettingsResult.getStatus();
 
-                    }
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        // All location settings are satisfied. The client can initialize location requests here
+                        getLocation();
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(HomeActivity.this, REQUEST_CHECK_SETTINGS);
 
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        break;
                 }
             }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Toast.makeText(HomeActivity.this, "errorr", Toast.LENGTH_SHORT).show();
-            }
         });
+
+
+    }
+
+
+    private void addGooglePermission() {
+        permissionUtils = new PermissionUtils(this);
+
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        permissionUtils.check_permission(permissions, "Need GPS permission for getting your location", 1);
+
+        // check availability of play services
+        if (checkPlayServices()) {
+            // Building the GoogleApi client
+            buildGoogleApiClient();
+        }
+    }
+
+    private void getLocation() {
+
+        if (isPermissionGranted) {
+            try {
+                mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient);
+                latitude = mLastLocation.getLatitude();
+                longitude = mLastLocation.getLongitude();
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    @Override
+    public void PermissionGranted(int request_code) {
+        Log.i("PERMISSION PARTIALLY", "GRANTED");
+        isPermissionGranted = true;
+    }
+
+    @Override
+    public void PartialPermissionGranted(int request_code, ArrayList<String> granted_permissions) {
+        Log.i("PERMISSION PARTIALLY", "GRANTED");
+    }
+
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + connectionResult.getErrorCode());
+    }
+
+
+    @Override
+    public void PermissionDenied(int request_code) {
+        Log.i("PERMISSION", "DENIED");
+    }
+
+    @Override
+    public void NeverAskAgain(int request_code) {
+        Log.i("PERMISSION", "NEVER ASK AGAIN");
+    }
+
+    /**
+     * Method to verify google play services on the device
+     */
+
+    private boolean checkPlayServices() {
+
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
+
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(resultCode)) {
+                googleApiAvailability.getErrorDialog(this, resultCode,
+                        PLAY_SERVICES_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                this.finish();
+            }
+            return false;
+        }
+        return true;
     }
 }
