@@ -8,55 +8,37 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="200dp"
             android:orientation="vertical">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:id="@+id/imgAnhDaiDien"
-                android:scaleType="fitXY"
-                android:src="@drawable/nha_nghi_3"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:weightSum="12">
+                android:layout_height="180dp">
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/imgNhaNghi_1"
-                    android:layout_weight="3"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/nha_nghi_2"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imgNhaNghi_6"
-                    android:layout_weight="3"
+                    android:id="@+id/imgAnhDaiDien"
                     android:scaleType="fitXY"
                     android:src="@drawable/nha_nghi_3"/>
+
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/imgNhaNghi_3"
-                    android:layout_weight="3"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/nha_nghi_4"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imgNhaNghi_5"
-                    android:layout_weight="3"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/nha_nghi_7"/>
-            </LinearLayout>
+                    android:background="@color/md_black"
+                    android:alpha="0.2"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lvDanhSachPhongNoiBat"
+                android:scrollbars="horizontal"
+                android:layout_width="match_parent"
+                style="@style/scrollbar_shape_style"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,6 +46,7 @@
                 android:text="Nhà nghỉ Nhật Minh"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:id="@+id/txtTenNhaNghi"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp" />
@@ -73,6 +56,7 @@
                 android:background="@drawable/bg_button_blue_500"
                 android:text="@string/nhaNghi"
                 android:textSize="12sp"
+                android:id="@+id/btnLoaiHinh"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/md_white"/>
             <TextView
@@ -83,6 +67,33 @@
                 android:id="@+id/txtDiaChiNhaNghi"
                 android:text="Nghĩa Tân, Hà Nội, Việt Nam"
                 android:textSize="12sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/md_grey_300"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="200dp">
+                <ImageView
+                    android:id="@+id/imgGoogleStaticMap"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btnXemBanDo"
+                    android:text="@string/hienThiBanDo"
+                    android:textSize="10sp"
+                    android:textColor="@color/md_white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bg_button_grey_500" />
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -141,10 +152,10 @@
                     android:textColor="@color/md_blue_500" />
 
                 <!--<ImageView-->
-                    <!--android:layout_width="15dp"-->
-                    <!--android:layout_height="15dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:src="@drawable/ic_arrow_right" />-->
+                <!--android:layout_width="15dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:src="@drawable/ic_arrow_right" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -153,6 +164,13 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/md_grey_300"/>
             <!--miêu tả-->
+            <com.mkit.mshanoi.ui.widget.TouchyWebView
+                android:id="@+id/webMieuTaChiTiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,39 +178,8 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:text="@string/mieuTa"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:id="@+id/txtMieuTaChiTiet"
-                android:text="@string/mieuTaNhaNghi"/>
+                android:text="@string/review"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:id="@+id/viewXemChiTiet"
-                android:gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/xemChiTiet"
-                    android:id="@+id/txtXemChiTiet"
-                    android:textColor="@color/md_blue_500"
-                    />
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/imgXemChiTiet"
-                    android:tint="@color/md_blue_500"
-                    android:src="@drawable/ic_arrow_down"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,55 +194,25 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/loaiPhong"/>
+                android:text="Bình luận"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/viewDanhSachPhong"/>
+
+            <ListView
+                android:id="@+id/lvDanhSachBinhLuan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@color/md_grey_200"
-        android:weightSum="10"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="6">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                android:text="@string/giaPhongMoiDem"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/md_orange_800"
-                android:textSize="20sp"
-                android:textAllCaps="true"
-                android:text="200,000 VND"/>
-        </LinearLayout>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="36dp"
-            android:textColor="@color/md_white"
-            android:text="@string/chonPhong"
-            android:id="@+id/btnChonPhong"
-            android:background="@drawable/bg_button_orange_700"/>
-    </LinearLayout>
 
 
     <TextView

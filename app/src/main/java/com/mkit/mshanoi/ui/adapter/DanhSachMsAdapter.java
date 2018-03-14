@@ -1,6 +1,7 @@
 package com.mkit.mshanoi.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
+import com.mkit.mshanoi.ui.activity.DetailActivity;
+import com.mkit.mshanoi.ui.event.DiaDiemMsEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -38,7 +44,7 @@ public class DanhSachMsAdapter extends ArrayAdapter<DiaDiemMsResponse> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         DanhSachMsAdapter.ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,6 +59,16 @@ public class DanhSachMsAdapter extends ArrayAdapter<DiaDiemMsResponse> {
 
             holder.txtDanhGia.setText(getItem(position).getPoint());
 
+            holder.viewDiaChiMS.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(getItem(position));
+                    EventBus.getDefault().postSticky(diaDiemMsEvent);
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,12 +77,14 @@ public class DanhSachMsAdapter extends ArrayAdapter<DiaDiemMsResponse> {
 
     private class ViewHolder {
         TextView txtTenQuanMS, txtDistance, txtDanhGia, txtGiaVe;
+        LinearLayout viewDiaChiMS;
 
         public ViewHolder(View view) {
             txtTenQuanMS = (TextView) view.findViewById(R.id.txtTenQuanMS);
             txtDistance = (TextView) view.findViewById(R.id.txtDistance);
             txtDanhGia = (TextView) view.findViewById(R.id.txtDanhGia);
             txtGiaVe = (TextView) view.findViewById(R.id.txtGiaVe);
+            viewDiaChiMS = (LinearLayout) view.findViewById(R.id.viewDiaChiMS);
 
 
         }

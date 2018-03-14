@@ -5,6 +5,7 @@ import android.content.Context;
 import com.mkit.mshanoi.app.BaseActivity;
 import com.mkit.mshanoi.app.BaseFragment;
 import com.mkit.mshanoi.app.LineApplication;
+import com.mkit.mshanoi.ui.activity.DetailActivity;
 import com.mkit.mshanoi.ui.activity.HomeActivity;
 import com.mkit.mshanoi.ui.fragment.DanhSachMsFragment;
 import com.mkit.mshanoi.ui.fragment.MapFragment;
@@ -30,6 +31,7 @@ import javax.inject.Singleton;
 
         //Activity
         HomeActivity.class,
+        DetailActivity.class,
 //        DetailActivity.class,
 //        ForgotPasswordActivity.class,
 //        HomeActivity.class,
