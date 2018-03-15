@@ -32,13 +32,21 @@ public class DiaDiemMsResponse {
 
     @SerializedName("long")
     @Getter @Setter
-    private String longTitule;
+    private Double longTitule;
 
     @SerializedName("lat")
     @Getter @Setter
-    private String latTitule;
+    private Double latTitule;
 
     @SerializedName("comment")
     @Getter @Setter
     private String comment;
+
+    @SerializedName("address")
+    @Getter @Setter
+    private String address;
+
+    @SerializedName("rate")
+    @Getter @Setter
+    private String rate;
 }

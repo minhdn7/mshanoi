@@ -54,14 +54,20 @@ public class StartActivity extends BaseActivity {
                         if(danhSachMs.child("linkAnh") != null && danhSachMs.child("linkAnh").getValue() != null) {
                             diaDiemMsResponse.setLinkAnh(danhSachMs.child("linkAnh").getValue().toString());
                         }
-                        if(danhSachMs.child("điểm") != null && danhSachMs.child("điểm").getValue() != null) {
-                            diaDiemMsResponse.setPoint(danhSachMs.child("điểm").getValue().toString());
+                        if(danhSachMs.child("point") != null && danhSachMs.child("point").getValue() != null) {
+                            diaDiemMsResponse.setPoint(danhSachMs.child("point").getValue().toString());
                         }
                         if(danhSachMs.child("long") != null && danhSachMs.child("long").getValue() != null) {
-                            diaDiemMsResponse.setLongTitule(danhSachMs.child("long").getValue().toString());
+                            diaDiemMsResponse.setLongTitule((Double) danhSachMs.child("long").getValue());
                         }
                         if(danhSachMs.child("lat") != null && danhSachMs.child("lat").getValue() != null) {
-                            diaDiemMsResponse.setLatTitule(danhSachMs.child("lat").getValue().toString());
+                            diaDiemMsResponse.setLatTitule((Double) danhSachMs.child("lat").getValue());
+                        }
+                        if(danhSachMs.child("address") != null && danhSachMs.child("address").getValue() != null) {
+                            diaDiemMsResponse.setAddress(danhSachMs.child("address").getValue().toString());
+                        }
+                        if(danhSachMs.child("rate") != null && danhSachMs.child("rate").getValue() != null) {
+                            diaDiemMsResponse.setRate(danhSachMs.child("rate").getValue().toString());
                         }
                         danhSachDiemMs.add(diaDiemMsResponse);
                     }

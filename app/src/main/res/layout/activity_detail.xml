@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:background="@drawable/bg_button_blue_500"
-                android:text="@string/nhaNghi"
+                android:text="@string/massage_vip"
                 android:textSize="12sp"
                 android:id="@+id/btnLoaiHinh"
                 android:layout_marginLeft="10dp"
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Từ 11 khách lưu trú"
+                android:text="Từ Các dân chơi"
                 android:layout_gravity="center"/>
 
             <LinearLayout

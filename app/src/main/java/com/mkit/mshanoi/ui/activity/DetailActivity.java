@@ -72,16 +72,25 @@ public class DetailActivity extends BaseActivity {
         getSupportActionBar().hide();
         addControls();
         addEvents();
-        loadMapImage(this, 21.028511, 105.804817);
+
     }
 
     private void addEvents() {
     }
 
     private void addControls() {
-        diaDiemMSDetail = EventBus.getDefault().getStickyEvent(DiaDiemMsEvent.class).getDiaDiemMsResponse();
+        try {
+            diaDiemMSDetail = EventBus.getDefault().getStickyEvent(DiaDiemMsEvent.class).getDiaDiemMsResponse();
 //        webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
-        webMieuTaChiTiet.loadUrl("https://drive.google.com/file/d/1-iq1WTuT5YQANqQWtiGYxrMgW69E8RFn/view?usp=sharing");
+            webMieuTaChiTiet.loadUrl("https://drive.google.com/file/d/1-iq1WTuT5YQANqQWtiGYxrMgW69E8RFn/view?usp=sharing");
+            txtTenNhaNghi.setText(diaDiemMSDetail.getName());
+            txtDiaChiNhaNghi.setText(diaDiemMSDetail.getAddress());
+            simpleRatingBar.setRating(Float.valueOf(diaDiemMSDetail.getRate()));
+            loadMapImage(this, diaDiemMSDetail.getLatTitule(), diaDiemMSDetail.getLatTitule());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
