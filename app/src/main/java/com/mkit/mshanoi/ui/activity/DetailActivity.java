@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,6 +63,9 @@ public class DetailActivity extends BaseActivity {
 
 
     private DiaDiemMsResponse diaDiemMSDetail;
+    // get tọa độ
+    private double latitude = 0;
+    private double longitude = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,26 @@ public class DetailActivity extends BaseActivity {
     }
 
     private void addEvents() {
+        btnXemBanDo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, MapDetailActivity.class);
+                intent.putExtra("LAT_POSITION", diaDiemMSDetail.getLatTitule());
+                intent.putExtra("LONG_POSITION", diaDiemMSDetail.getLongTitule());
+                intent.putExtra("NAME_HOTEL", txtTittleNhaNghi.getText().toString().trim());
+                startActivity(intent);
+            }
+        });
+        imgGoogleStaticMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, MapDetailActivity.class);
+                intent.putExtra("LAT_POSITION", diaDiemMSDetail.getLatTitule());
+                intent.putExtra("LONG_POSITION", diaDiemMSDetail.getLongTitule());
+                intent.putExtra("NAME_HOTEL", txtTittleNhaNghi.getText().toString().trim());
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControls() {
@@ -86,7 +110,7 @@ public class DetailActivity extends BaseActivity {
             txtTenNhaNghi.setText(diaDiemMSDetail.getName());
             txtDiaChiNhaNghi.setText(diaDiemMSDetail.getAddress());
             simpleRatingBar.setRating(Float.valueOf(diaDiemMSDetail.getRate()));
-            loadMapImage(this, diaDiemMSDetail.getLatTitule(), diaDiemMSDetail.getLatTitule());
+            loadMapImage(this, diaDiemMSDetail.getLatTitule(), diaDiemMSDetail.getLongTitule());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,9 +139,10 @@ public class DetailActivity extends BaseActivity {
         sb.append(latitude);
         sb.append(",");
         sb.append(longitude);
-        sb.append("&zoom=12");
+        sb.append("&zoom=15");
         sb.append("&size=600x300");
-        sb.append("&key=AIzaSyAoDF0slrRXQUIuaI5GXG8E2xX1_xjAOgc&img.jpg");
+//        sb.append("&maptype=hybrid");
+        sb.append("&key=AIzaSyCEOzecGURX8jT60oVdONBpqqNWQCTORVs&img.jpg");
 
         Log.i("LOG", "Picasso loading: " + sb.toString());
         Picasso.with(context)
