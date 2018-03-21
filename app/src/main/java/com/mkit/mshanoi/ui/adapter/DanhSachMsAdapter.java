@@ -59,6 +59,8 @@ public class DanhSachMsAdapter extends ArrayAdapter<DiaDiemMsResponse> {
 
             holder.txtDanhGia.setText(getItem(position).getPoint());
 
+            holder.txtGiaVe.setText(getItem(position).getTic());
+
             holder.viewDiaChiMS.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

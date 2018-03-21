@@ -49,4 +49,8 @@ public class DiaDiemMsResponse {
     @SerializedName("rate")
     @Getter @Setter
     private String rate;
+
+    @SerializedName("tic")
+    @Getter @Setter
+    private String tic;
 }

@@ -25,7 +25,8 @@ public class TouchyWebView extends WebView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        requestDisallowInterceptTouchEvent(true);
+        if(computeVerticalScrollRange() > getMeasuredHeight())
+            requestDisallowInterceptTouchEvent(true);
         return super.onTouchEvent(event);
     }
 }

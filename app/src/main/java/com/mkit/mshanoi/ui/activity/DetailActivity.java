@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +81,8 @@ public class DetailActivity extends BaseActivity {
 
     }
 
+
+
     private void addEvents() {
         btnXemBanDo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,17 +104,48 @@ public class DetailActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (scrollView != null) {
+                    if (scrollView.getChildAt(0).getTop() >= scrollView.getScrollY()) {
+                        icBack.setVisibility(View.VISIBLE);
+                        getSupportActionBar().hide();
+                        //scroll view is at top
+                    } else {
+                        //scroll view is not at top
+                        getSupportActionBar().show();
+                        icBack.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        icBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void addControls() {
         try {
             diaDiemMSDetail = EventBus.getDefault().getStickyEvent(DiaDiemMsEvent.class).getDiaDiemMsResponse();
 //        webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
-            webMieuTaChiTiet.loadUrl("https://drive.google.com/file/d/1-iq1WTuT5YQANqQWtiGYxrMgW69E8RFn/view?usp=sharing");
+            // set miêu tả chi tiết
+            webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
+            WebSettings webSettings = webMieuTaChiTiet.getSettings();
+            webSettings.setDefaultFontSize(14);
+            webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+            // end
+
             txtTenNhaNghi.setText(diaDiemMSDetail.getName());
             txtDiaChiNhaNghi.setText(diaDiemMSDetail.getAddress());
             simpleRatingBar.setRating(Float.valueOf(diaDiemMSDetail.getRate()));
             loadMapImage(this, diaDiemMSDetail.getLatTitule(), diaDiemMSDetail.getLongTitule());
+            setTitle(diaDiemMSDetail.getName());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,10 +157,6 @@ public class DetailActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                return true;
-            case R.id.action_home:
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -149,4 +180,6 @@ public class DetailActivity extends BaseActivity {
                 .load(sb.toString())
                 .into(imgGoogleStaticMap);
     }
+
+
 }

@@ -69,6 +69,9 @@ public class StartActivity extends BaseActivity {
                         if(danhSachMs.child("rate") != null && danhSachMs.child("rate").getValue() != null) {
                             diaDiemMsResponse.setRate(danhSachMs.child("rate").getValue().toString());
                         }
+                        if(danhSachMs.child("tic") != null && danhSachMs.child("tic").getValue() != null) {
+                            diaDiemMsResponse.setTic(danhSachMs.child("tic").getValue().toString());
+                        }
                         danhSachDiemMs.add(diaDiemMsResponse);
                     }
                     Intent intent = new Intent(StartActivity.this, HomeActivity.class);

@@ -94,11 +94,13 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.Connec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Massage Hà Nội");
         addControls();
         addGooglePermission();
     }
+
+
 
     private void addControls() {
         createFragments();
@@ -294,5 +296,10 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.Connec
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }
