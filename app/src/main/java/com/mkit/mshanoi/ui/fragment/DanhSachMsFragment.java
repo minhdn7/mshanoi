@@ -58,17 +58,15 @@ public class DanhSachMsFragment extends BaseFragment {
 //                    DanhSachMsAdapter danhSachMsAdapter = new DanhSachMsAdapter(getActivity(), R.layout.item_danh_sach_ms, danhSachDiaDiem);
 //                    lvDanhSachMS.setAdapter(danhSachMsAdapter);
             }
-//            webView.getSettings().setAppCachePath( getApplicationContext().getCacheDir().getAbsolutePath() );
-//            webView.getSettings().setAllowFileAccess( true );
-//            webView.getSettings().setAppCacheEnabled( true );
-//            webView.getSettings().setJavaScriptEnabled( true );
-//            webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
+            webView.getSettings().setJavaScriptEnabled(true);
             if (!isConnectedNetwork()) {
                 webView.loadUrl("file:///android_asset/CoinMarketCap_2.html");
             } else {
-                webView.loadUrl("http://mshanoi.com/category/list-tong-hop/");
+//                webView.loadUrl("http://mshanoi.com/category/list-tong-hop/");
+                webView.loadUrl("file:///android_asset/mshanoi_2.html");
             }
 
+            // load link in webview
             this.webView.setWebViewClient(new WebViewClient() {
 
                 @Override
@@ -76,7 +74,19 @@ public class DanhSachMsFragment extends BaseFragment {
                     view.loadUrl(url);
                     return true;
                 }
+
+                // remove header in webview
+                @Override
+                public void onPageFinished(WebView view, String url)
+                {
+                    webView.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementsByTagName('header')[0];"
+                            + "head.parentNode.removeChild(head);" +
+                            "})()");
+                }
             });
+            // end
+
         } catch (Exception e) {
             e.printStackTrace();
         }
