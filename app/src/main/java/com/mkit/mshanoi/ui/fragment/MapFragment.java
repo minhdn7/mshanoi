@@ -16,15 +16,25 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -54,8 +64,12 @@ import com.google.maps.android.ui.IconGenerator;
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseFragment;
 import com.mkit.mshanoi.app.utils.PermissionUtils;
+import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
 import com.mkit.mshanoi.domain.repository.MapDemoActivityPermissionsDispatcher;
 import com.mkit.mshanoi.ui.activity.HomeActivity;
+import com.mkit.mshanoi.ui.event.ListMsEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -99,6 +113,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     private double latitude = 21.028511;
     private double longitude = 105.804817;
     private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
+    private List<DiaDiemMsResponse> danhSachDiaDiem = new ArrayList<>();
 
     public MapFragment() {
         // Required empty public constructor
@@ -134,10 +149,36 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         addControls(view);
-
+        addEvents();
         return view;
     }
 
+    private void addEvents() {
+
+
+    }
+
+    private void addMarkerEvents(){
+        if(map != null){
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    Locale.setDefault(Locale.US);
+                    IconGenerator iconFactory = new IconGenerator(getContext());
+                    iconFactory.setStyle(R.style.iconFactoryClick);
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(marker.getTitle())));
+                    String idMassage = danhSachDiaDiem.get(mHashMap.get(marker)).getId();
+
+                    dialogThongTinNhaNghi(danhSachDiaDiem.get(mHashMap.get(marker)).getName(),
+                            danhSachDiaDiem.get(mHashMap.get(marker)).getAddress(),
+                             danhSachDiaDiem.get(mHashMap.get(marker)).getTic(),
+                             danhSachDiaDiem.get(mHashMap.get(marker)).getPoint(),
+                            "");
+                    return false;
+                }
+            });
+        }
+    }
 
     private void addControls(View view) {
 //        mapFragment = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map));
@@ -154,7 +195,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         } else {
             Toast.makeText(getActivity(), "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
-
+        danhSachDiaDiem = EventBus.getDefault().getStickyEvent(ListMsEvent.class).getListMs();
     }
 
 
@@ -246,10 +287,25 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
                 map.setMyLocationEnabled(true);
             }
             onLocationChanged(homeActivity.mLastLocation);
+            addDiaDiem();
+            addMarkerEvents();
         } else {
             Toast.makeText(getActivity(), "Error - Map was null!!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void addDiaDiem() {
+        if(danhSachDiaDiem.size() > 0){
+            for(int i = 0; i < danhSachDiaDiem.size(); i++){
+                addMarker(danhSachDiaDiem.get(i).getName(),
+                        danhSachDiaDiem.get(i).getTic(),
+                        new LatLng(danhSachDiaDiem.get(i).getLatTitule(), danhSachDiaDiem.get(i).getLongTitule()),
+                        Integer.parseInt(danhSachDiaDiem.get(i).getId()));
+            }
+        }
+
+    }
+
     private void performSearchLocation(LatLng searchLocation) {
         CameraUpdate center = CameraUpdateFactory.newLatLng(searchLocation);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
@@ -288,9 +344,72 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         void onFragmentInteraction(Uri uri);
     }
 
+    // show dialog
+    private void dialogThongTinNhaNghi(String title, String distance, String giaPhong, String shortDescription, String imgUrl) {
+        final BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_nha_nghi);
+        LinearLayout viewDialogNhaNghi = (LinearLayout) dialog.findViewById(R.id.viewDialogNhaNghi);
+        TextView txtTenNhaNghi = (TextView) dialog.findViewById(R.id.txtTenNhaNghi);
+        TextView txtDistance = (TextView) dialog.findViewById(R.id.txtDistance);
+        TextView txtGiaPhong = (TextView) dialog.findViewById(R.id.txtGiaPhong);
+        TextView txtMieuTa = (TextView) dialog.findViewById(R.id.txtMieuTa);
+        ImageView imgNhaNghi = (ImageView) dialog.findViewById(R.id.imgNhaNghi);
 
+        txtTenNhaNghi.setText(title);
+        txtDistance.setText(distance);
+        txtGiaPhong.setText(giaPhong);
+        txtMieuTa.setText(shortDescription);
 
+        // chỉnh kích cỡ dialog show
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        height = (int) (height * 0.4);
+        lp.width = width;
+        lp.height = height;
+        lp.gravity = Gravity.CENTER;
+        dialog.getWindow().setAttributes(lp);
+//        mBehavior.setPeekHeight(height);
+        dialog.show();
 
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+                // Right here!
+                final BottomSheetBehavior behaviour = BottomSheetBehavior.from(bottomSheet);
+                behaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                    @Override
+                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                            dialog.dismiss();
+                        }
 
+                        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                            ((BottomSheetBehavior) behaviour).setState(BottomSheetBehavior.STATE_EXPANDED);
+                        }
+                    }
+
+                    @Override
+                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                    }
+                });
+            }
+        });
+
+        viewDialogNhaNghi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.mkit.mshanoi.ui.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -89,6 +90,14 @@ public class ForumsFragment extends BaseFragment {
                             "var head = document.getElementsByTagName('header')[0];"
                             + "head.parentNode.removeChild(head);" +
                             "})()");
+                    hideProgressBar();
+                }
+
+                @Override
+                public void onPageStarted(
+                        WebView view, String url, Bitmap favicon)
+                {
+                    showProgressBar();
                 }
             });
         } catch (Exception e) {
@@ -124,4 +133,5 @@ public class ForumsFragment extends BaseFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

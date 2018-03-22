@@ -104,7 +104,7 @@
     <string name="dangNhap">Đăng nhập</string>
     <string name="nhapEmailPhoneBenDuoi">Nhập email hoặc số di động của bạn bên dưới</string>
     <string name="tiepTuc">Tiếp tục</string>
-    <string name="danhGia">Đánh giá</string>
+    <string name="danhGia">Đánh giá:</string>
     <string name="tieuDe">Tiêu đề</string>
     <string name="thongTinDatphong">Thông tin đặt phòng</string>
     <string name="thongTinThanhToan">Thông tin thanh toán</string>

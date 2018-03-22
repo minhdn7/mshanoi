@@ -1,5 +1,6 @@
 package com.mkit.mshanoi.ui.fragment;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -83,6 +84,14 @@ public class DanhSachMsFragment extends BaseFragment {
                             "var head = document.getElementsByTagName('header')[0];"
                             + "head.parentNode.removeChild(head);" +
                             "})()");
+                    hideProgressBar();
+                }
+
+                @Override
+                public void onPageStarted(
+                        WebView view, String url, Bitmap favicon)
+                {
+                    showProgressBar();
                 }
             });
             // end
