@@ -2,6 +2,7 @@ package com.mkit.mshanoi.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,9 +63,11 @@ public class DetailActivity extends BaseActivity {
     TextView txtTittleNhaNghi;
     @BindView(R.id.icBack)
     ImageView icBack;
-    @BindView(R.id.webMieuTaChiTiet)
-    TouchyWebView webMieuTaChiTiet;
+//    @BindView(R.id.webMieuTaChiTiet)
+//    TouchyWebView webMieuTaChiTiet;
 
+    @BindView(R.id.webMieuTaChiTiet)
+    WebView webMieuTaChiTiet;
 
     private DiaDiemMsResponse diaDiemMSDetail;
     // get tọa độ
@@ -135,10 +140,56 @@ public class DetailActivity extends BaseActivity {
             diaDiemMSDetail = EventBus.getDefault().getStickyEvent(DiaDiemMsEvent.class).getDiaDiemMsResponse();
 //        webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
             // set miêu tả chi tiết
-            webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
-            WebSettings webSettings = webMieuTaChiTiet.getSettings();
-            webSettings.setDefaultFontSize(14);
-            webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+//            webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
+//            WebSettings webSettings = webMieuTaChiTiet.getSettings();
+//            webSettings.setDefaultFontSize(14);
+//            webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+//            webMieuTaChiTiet.getSettings().setJavaScriptEnabled(true);
+            webMieuTaChiTiet.setVerticalScrollBarEnabled(false);
+            webMieuTaChiTiet.setHorizontalScrollBarEnabled(false);
+            if (!isConnectedNetwork()) {
+                webMieuTaChiTiet.loadUrl("file:///android_asset/CoinMarketCap_2.html");
+            } else {
+//                webView.loadUrl("http://mshanoi.com/category/list-tong-hop/");
+                webMieuTaChiTiet.loadUrl(diaDiemMSDetail.getLinkTruyen());
+            }
+
+            // load link in webview
+            this.webMieuTaChiTiet.setWebViewClient(new WebViewClient() {
+
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+
+                // remove header in webview
+                @Override
+                public void onPageFinished(WebView view, String url)
+                {
+                    webMieuTaChiTiet.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementsByTagName('header')[0];"
+                            + "head.parentNode.removeChild(head);" +
+                            "})()");
+                    webMieuTaChiTiet.loadUrl("javascript:(function() { " +
+                            "var login = document.getElementsByTagName('login-area')[0];"
+                            + "login.parentNode.removeChild(login);" +
+                            "})()");
+
+                    webMieuTaChiTiet.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementsByClassName('ps-landing-signup')[0];"
+                            + "head.parentNode.removeChild(head);" +
+                            "})()");
+                    hideProgressBar();
+                }
+
+                @Override
+                public void onPageStarted(
+                        WebView view, String url, Bitmap favicon)
+                {
+                    showProgressBar();
+                }
+            });
             // end
 
             txtTenNhaNghi.setText(diaDiemMSDetail.getName());

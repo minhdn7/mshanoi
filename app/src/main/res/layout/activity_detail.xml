@@ -127,12 +127,12 @@
                 app:srb_clearRatingEnabled="true">
             </com.willy.ratingbar.ScaleRatingBar>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Từ Các dân chơi"
-                android:layout_gravity="center"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:text="Từ Các dân chơi"-->
+                <!--android:layout_gravity="center"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,14 +148,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="@string/xemBinhLuan"
+                    android:text="Đánh giá từ các dân chơi"
                     android:textColor="@color/md_blue_500" />
 
-                <!--<ImageView-->
-                <!--android:layout_width="15dp"-->
-                <!--android:layout_height="15dp"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:src="@drawable/ic_arrow_right" />-->
+
             </LinearLayout>
 
             <LinearLayout
@@ -173,12 +169,16 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/review"/>
 
-            <com.mkit.mshanoi.ui.widget.TouchyWebView
-                android:id="@+id/webMieuTaChiTiet"
+            <!--<com.mkit.mshanoi.ui.widget.TouchyWebView-->
+                <!--android:id="@+id/webMieuTaChiTiet"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp" />-->
+
+            <WebView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
+                android:id="@+id/webMieuTaChiTiet" />
 
 
 

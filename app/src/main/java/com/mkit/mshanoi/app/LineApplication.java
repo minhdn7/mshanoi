@@ -18,6 +18,7 @@ public class LineApplication extends Application {
 
     @Getter private String baseUrl;
     public static final String apiBaseUrl = "http://10.145.40.188:8888/";
+    public static final String apiFireBaseUrl = "https://ms-ha-noi.firebaseio.com/ms ha noi";
 //    public static final String apiBaseUrl = "http://10.145.40.74:8888/";
 
     public static final Boolean ChangeVplusToVpoint = true;

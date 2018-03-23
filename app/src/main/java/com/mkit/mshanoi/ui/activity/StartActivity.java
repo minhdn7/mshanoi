@@ -12,6 +12,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseActivity;
+import com.mkit.mshanoi.app.LineApplication;
 import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
 import com.mkit.mshanoi.ui.event.ListMsEvent;
 
@@ -35,7 +36,7 @@ public class StartActivity extends BaseActivity {
 
     public void getDataFireBase() {
         Firebase.setAndroidContext(this);
-        Firebase firebaseRef = new Firebase("https://ms-ha-noi.firebaseio.com/ms ha noi");
+        Firebase firebaseRef = new Firebase(LineApplication.apiFireBaseUrl);
         firebaseRef.child("danh sach").addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

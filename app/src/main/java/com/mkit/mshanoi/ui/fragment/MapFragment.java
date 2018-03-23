@@ -66,7 +66,9 @@ import com.mkit.mshanoi.app.BaseFragment;
 import com.mkit.mshanoi.app.utils.PermissionUtils;
 import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
 import com.mkit.mshanoi.domain.repository.MapDemoActivityPermissionsDispatcher;
+import com.mkit.mshanoi.ui.activity.DetailActivity;
 import com.mkit.mshanoi.ui.activity.HomeActivity;
+import com.mkit.mshanoi.ui.event.DiaDiemMsEvent;
 import com.mkit.mshanoi.ui.event.ListMsEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -169,11 +171,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
                     marker.setIcon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(marker.getTitle())));
                     String idMassage = danhSachDiaDiem.get(mHashMap.get(marker)).getId();
 
-                    dialogThongTinNhaNghi(danhSachDiaDiem.get(mHashMap.get(marker)).getName(),
-                            danhSachDiaDiem.get(mHashMap.get(marker)).getAddress(),
-                             danhSachDiaDiem.get(mHashMap.get(marker)).getTic(),
-                             danhSachDiaDiem.get(mHashMap.get(marker)).getPoint(),
-                            "");
+                    dialogThongTinNhaNghi(danhSachDiaDiem.get(mHashMap.get(marker)));
                     return false;
                 }
             });
@@ -300,7 +298,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
                 addMarker(danhSachDiaDiem.get(i).getName(),
                         danhSachDiaDiem.get(i).getTic(),
                         new LatLng(danhSachDiaDiem.get(i).getLatTitule(), danhSachDiaDiem.get(i).getLongTitule()),
-                        Integer.parseInt(danhSachDiaDiem.get(i).getId()));
+                        i);
             }
         }
 
@@ -345,7 +343,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     }
 
     // show dialog
-    private void dialogThongTinNhaNghi(String title, String distance, String giaPhong, String shortDescription, String imgUrl) {
+//    private void dialogThongTinNhaNghi(String title, String distance, String giaPhong, String shortDescription, String imgUrl) {
+    private void dialogThongTinNhaNghi(final DiaDiemMsResponse diaDiemMsResponse) {
         final BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_nha_nghi);
@@ -356,10 +355,10 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         TextView txtMieuTa = (TextView) dialog.findViewById(R.id.txtMieuTa);
         ImageView imgNhaNghi = (ImageView) dialog.findViewById(R.id.imgNhaNghi);
 
-        txtTenNhaNghi.setText(title);
-        txtDistance.setText(distance);
-        txtGiaPhong.setText(giaPhong);
-        txtMieuTa.setText(shortDescription);
+        txtTenNhaNghi.setText(diaDiemMsResponse.getName());
+        txtDistance.setText(diaDiemMsResponse.getAddress());
+        txtGiaPhong.setText(diaDiemMsResponse.getTic());
+        txtMieuTa.setText(diaDiemMsResponse.getPoint());
 
         // chỉnh kích cỡ dialog show
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -406,7 +405,10 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         viewDialogNhaNghi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
+                EventBus.getDefault().postSticky(diaDiemMsEvent);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                startActivity(intent);
             }
         });
 
