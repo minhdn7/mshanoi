@@ -144,7 +144,7 @@ public class DetailActivity extends BaseActivity {
 //            WebSettings webSettings = webMieuTaChiTiet.getSettings();
 //            webSettings.setDefaultFontSize(14);
 //            webSettings.setTextSize(WebSettings.TextSize.NORMAL);
-//            webMieuTaChiTiet.getSettings().setJavaScriptEnabled(true);
+            webMieuTaChiTiet.getSettings().setJavaScriptEnabled(true);
             webMieuTaChiTiet.setVerticalScrollBarEnabled(false);
             webMieuTaChiTiet.setHorizontalScrollBarEnabled(false);
             if (!isConnectedNetwork()) {
@@ -172,14 +172,12 @@ public class DetailActivity extends BaseActivity {
                             + "head.parentNode.removeChild(head);" +
                             "})()");
                     webMieuTaChiTiet.loadUrl("javascript:(function() { " +
-                            "var login = document.getElementsByTagName('login-area')[0];"
-                            + "login.parentNode.removeChild(login);" +
+                            "var registration = document.getElementById('registration');"
+                            + "var secondary = document.getElementById('secondary');"
+                            + "registration.style.display  = 'none';"
+                            + "secondary.style.display  = 'none';" +
                             "})()");
 
-                    webMieuTaChiTiet.loadUrl("javascript:(function() { " +
-                            "var head = document.getElementsByClassName('ps-landing-signup')[0];"
-                            + "head.parentNode.removeChild(head);" +
-                            "})()");
                     hideProgressBar();
                 }
 
