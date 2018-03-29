@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.mkit.mshanoi"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -58,15 +58,16 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:11.0.4'
     compile 'com.firebase:firebase-client-android:2.4.0'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.apl-devs:appintro:v4.2.2'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:26.0.2'
+    compile 'com.android.support:design:26.0.2'
     compile 'com.github.hotchemi:permissionsdispatcher:3.0.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile 'org.projectlombok:lombok:1.16.2'
+    annotationProcessor 'org.projectlombok:lombok:1.16.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'org.greenrobot:eventbus:3.1.1'
@@ -92,5 +93,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    annotationProcessor 'com.squareup.dagger:dagger-compiler:1.2.2'
+    compile 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
 apply plugin: 'com.google.gms.google-services'

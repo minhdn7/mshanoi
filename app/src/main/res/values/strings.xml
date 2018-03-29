@@ -200,4 +200,11 @@
     <string name="hienThiBanDo">Hiển thị bản đồ</string>
     <string name="review">Review</string>
     <string name="massage_vip">Massage Vip</string>
+
+    <string name="str_dang_tai_du_lieu">Đang tải dữ liệu</string>
+    <string name="str_vui_long_doi">Vui lòng đợi ...</string>
+    <string name="str_thong_bao">Thông báo</string>
+    <string name="str_oke">Oke</string>
+    <string name="str_cancel">Hủy bỏ</string>
+
 </resources>

@@ -1,11 +1,14 @@
 package com.mkit.mshanoi.app;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AlertDialog;
@@ -23,15 +26,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.analytics.Tracker;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mkit.mshanoi.R;
+import com.mkit.mshanoi.app.utils.NetworkStateChanged;
 import com.mkit.mshanoi.domain.repository.TinyDB;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -50,7 +57,8 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
     private KProgressHUD hud;
     private Tracker mTracker;
     public TinyDB tinyDB;
-
+    MaterialDialog dialog;
+    private android.app.AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,11 +150,6 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        return cm.getActiveNetworkInfo() != null;
-    }
 
     public Boolean isSpecialCharAvailable(String s) {
         //int counter =0;
@@ -235,6 +238,60 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
     }
 
 
+    public void showProgress(String titleProgress) {
+        if (dialog == null) {
+            dialog = new MaterialDialog.Builder(this).title(titleProgress)
+                    .content(R.string.str_vui_long_doi)
+                    .progress(true, 0)
+                    .progressIndeterminateStyle(true)
+                    .cancelable(false)
+                    .show();
+        }
+    }
+
+    public void showProgress() {
+        if (dialog == null) {
+            dialog = new MaterialDialog.Builder(this).content(R.string.str_vui_long_doi)
+                    .progress(true, 0)
+                    .progressIndeterminateStyle(true)
+                    .cancelable(false)
+                    .show();
+        }
+    }
+
+    public void showDialog(String contentDialog) {
+        MaterialDialog dialog = new MaterialDialog.Builder(this).title(R.string.str_thong_bao)
+                .content(contentDialog)
+                .positiveText(R.string.str_oke)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                })
+                .show();
+    }
+
+    public void showDialog(String contentDialog, final boolean isFinish) {
+        MaterialDialog dialog = new MaterialDialog.Builder(this).title(R.string.str_thong_bao)
+                .content(contentDialog)
+                .positiveText(R.string.str_oke)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override public void onDismiss(DialogInterface dialogInterface) {
+                        if (isFinish) {
+                            finish();
+                        }
+                    }
+                })
+                .show();
+    }
+
+    public void dismissProgress() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
+
 
 
     public void dilogThongBao(String title, String noiDung, String sButtton){
@@ -305,5 +362,47 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
             // Log error
         }
         return false;
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(final NetworkStateChanged networkStateChanged) {
+
+        if (networkStateChanged.isInternetConnected()) {
+
+            if(alertDialog.isShowing()){
+                alertDialog.dismiss();
+            }
+
+        } else {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle("Mất kết nối mạng");
+            builder.setMessage("Vui lòng kiểm tra lại kết nối");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Thử lại", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View view) {
+                    if (isNetworkConnected()) {
+                        alertDialog.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    } else {
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivityForResult(intent, 0);
+                    }
+                }
+            });
+        }
     }
 }
