@@ -73,6 +73,9 @@ public class StartActivity extends BaseActivity {
                         if(danhSachMs.child("tic") != null && danhSachMs.child("tic").getValue() != null) {
                             diaDiemMsResponse.setTic(danhSachMs.child("tic").getValue().toString());
                         }
+                        if(danhSachMs.child("phone") != null && danhSachMs.child("phone").getValue() != null) {
+                            diaDiemMsResponse.setPhone(danhSachMs.child("phone").getValue().toString());
+                        }
                         danhSachDiemMs.add(diaDiemMsResponse);
                     }
                     Intent intent = new Intent(StartActivity.this, HomeActivity.class);

@@ -31,6 +31,13 @@
                     android:layout_height="match_parent"
                     android:background="@color/md_black"
                     android:alpha="0.2"/>
+
+                <ImageView
+                    android:id="@+id/imgGoogleStaticMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -75,11 +82,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="200dp">
-                <ImageView
-                    android:id="@+id/imgGoogleStaticMap"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:layout_height="match_parent" />
+
                 <Button
                     android:layout_width="100dp"
                     android:layout_height="30dp"
@@ -212,23 +215,48 @@
         </LinearLayout>
     </ScrollView>
 
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/md_blue_500"
-        android:visibility="gone"
-        android:text="@string/title_chi_tiet"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textColor="@color/md_white"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/viewChonDanhSachPhong"
         android:gravity="center"
-        android:id="@+id/txtTittleNhaNghi"/>
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/ic_back_2"
-        android:layout_marginTop="4dp"
-        android:id="@+id/icBack"/>
+        android:background="@color/md_grey_200"
+        android:weightSum="10"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="6">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:text="Giá tic chỉ từ:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtGiaTic"
+                android:textStyle="bold"
+                android:textColor="@color/md_orange_800"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:text="200,000 VND"/>
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="36dp"
+            android:textColor="@color/md_white"
+            android:text="Gọi đặt ngay"
+            android:id="@+id/btnCall"
+            android:background="@drawable/bg_button_orange_700"/>
+    </LinearLayout>
 </RelativeLayout>

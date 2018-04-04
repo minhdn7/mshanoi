@@ -265,7 +265,7 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
                 .positiveText(R.string.str_oke)
                 .dismissListener(new DialogInterface.OnDismissListener() {
                     @Override public void onDismiss(DialogInterface dialogInterface) {
-                        finish();
+
                     }
                 })
                 .show();

@@ -53,4 +53,9 @@ public class DiaDiemMsResponse {
     @SerializedName("tic")
     @Getter @Setter
     private String tic;
+
+
+    @SerializedName("phone")
+    @Getter @Setter
+    private String phone;
 }
