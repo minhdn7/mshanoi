@@ -205,6 +205,7 @@
     <string name="str_vui_long_doi">Vui lòng đợi ...</string>
     <string name="str_thong_bao">Thông báo</string>
     <string name="str_oke">Oke</string>
+    <string name="str_reload">Thử lại</string>
     <string name="str_cancel">Hủy bỏ</string>
 
 </resources>

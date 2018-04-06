@@ -1,5 +1,6 @@
 package com.mkit.mshanoi.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -31,6 +33,8 @@ public class StartActivity extends BaseActivity {
         if(isConnectedNetwork()){
             showProgressBar();
             getDataFireBase();
+        }else{
+            showDialogCheckInternet("Không thể kết nối được đến hệ thống, xin quý đồng dâm kiểm tra lại kết nối internet(wifi, 3G), và thử lại");
         }
     }
 
@@ -99,4 +103,17 @@ public class StartActivity extends BaseActivity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+    public void showDialogCheckInternet(String contentDialog) {
+        MaterialDialog dialog = new MaterialDialog.Builder(this).title(R.string.str_thong_bao)
+                .content(contentDialog)
+                .positiveText(R.string.str_reload)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override public void onDismiss(DialogInterface dialogInterface) {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                })
+                .show();
+    }
 }
