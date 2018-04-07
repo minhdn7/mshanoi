@@ -60,9 +60,23 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.PolicyActivity"
+        <activity
+            android:name=".ui.activity.PolicyActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.CustomActionBar"/>
+            android:theme="@style/AppTheme.CustomActionBar" />
+        <activity android:name=".ui.activity.ShareActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- facebook -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

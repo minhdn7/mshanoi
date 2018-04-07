@@ -11,6 +11,7 @@ import com.mkit.mshanoi.ui.activity.IntroActivity;
 import com.mkit.mshanoi.ui.activity.MainActivity;
 import com.mkit.mshanoi.ui.activity.MapDetailActivity;
 import com.mkit.mshanoi.ui.activity.PolicyActivity;
+import com.mkit.mshanoi.ui.activity.ShareActivity;
 import com.mkit.mshanoi.ui.activity.StartActivity;
 import com.mkit.mshanoi.ui.fragment.DanhSachMsFragment;
 import com.mkit.mshanoi.ui.fragment.ForumsFragment;
@@ -46,6 +47,7 @@ import javax.inject.Singleton;
         MapDetailActivity.class,
         StartActivity.class,
         PolicyActivity.class,
+        ShareActivity.class,
 //        DetailActivity.class,
 //        ForgotPasswordActivity.class,
 //        HomeActivity.class,

@@ -22,7 +22,8 @@ public class PolicyActivity extends BaseActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Điều khoản sử dụng");
-
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/policy.html");
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.mkit.mshanoi.ui.fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +10,17 @@ import android.view.ViewGroup;
 
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseFragment;
+import com.mkit.mshanoi.ui.activity.PolicyActivity;
+import com.mkit.mshanoi.ui.activity.ShareActivity;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MenuFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -22,6 +28,7 @@ import com.mkit.mshanoi.app.BaseFragment;
 public class MenuFragment extends BaseFragment {
 
 
+    Unbinder unbinder;
     private OnFragmentInteractionListener mListener;
 
     public MenuFragment() {
@@ -46,7 +53,27 @@ public class MenuFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu2, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu2, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.btnShare, R.id.btnPolicy})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnShare:
+                startActivity(new Intent(getActivity(), ShareActivity.class));
+                break;
+            case R.id.btnPolicy:
+                startActivity(new Intent(getActivity(), PolicyActivity.class));
+                break;
+        }
     }
 
 
