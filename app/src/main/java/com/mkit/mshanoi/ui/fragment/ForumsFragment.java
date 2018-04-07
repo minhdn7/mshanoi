@@ -1,6 +1,5 @@
 package com.mkit.mshanoi.ui.fragment;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,22 +8,23 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseFragment;
-import com.mkit.mshanoi.ui.event.ListMsEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ForumsFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ForumsFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -32,6 +32,8 @@ import butterknife.ButterKnife;
 public class ForumsFragment extends BaseFragment {
 
 
+    @BindView(R.id.view_connect_fail)
+    LinearLayout viewConnectFail;
     private OnFragmentInteractionListener mListener;
     @BindView(R.id.webView)
     WebView webView;
@@ -67,13 +69,8 @@ public class ForumsFragment extends BaseFragment {
 
     private void addControls() {
         try {
-            if (!isConnectedNetwork()) {
-                webView.loadUrl("file:///android_asset/CoinMarketCap_2.html");
-            } else {
-//                webView.loadUrl("http://mshanoi.com/category/review/");
-                webView.loadUrl("file:///android_asset/ReviewMsHaNoi.html");
-            }
-
+            webView.loadUrl("file:///android_asset/ReviewMsHaNoi.html");
+            viewConnectFail.setVisibility(View.GONE);
             this.webView.setWebViewClient(new WebViewClient() {
 
                 @Override
@@ -84,8 +81,7 @@ public class ForumsFragment extends BaseFragment {
 
                 // remove header in webview
                 @Override
-                public void onPageFinished(WebView view, String url)
-                {
+                public void onPageFinished(WebView view, String url) {
                     webView.loadUrl("javascript:(function() { " +
                             "var head = document.getElementsByTagName('header')[0];"
                             + "head.parentNode.removeChild(head);" +
@@ -95,9 +91,19 @@ public class ForumsFragment extends BaseFragment {
 
                 @Override
                 public void onPageStarted(
-                        WebView view, String url, Bitmap favicon)
-                {
+                        WebView view, String url, Bitmap favicon) {
                     showProgressBar();
+                }
+
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    super.onReceivedError(view, request, error);
+                    if(!isConnectedNetwork()){
+                        viewConnectFail.setVisibility(View.VISIBLE);
+
+                    }else {
+                        viewConnectFail.setVisibility(View.GONE);
+                    }
                 }
             });
         } catch (Exception e) {
@@ -116,6 +122,13 @@ public class ForumsFragment extends BaseFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @OnClick(R.id.btn_reload)
+    public void onViewClicked() {
+        viewConnectFail.setVisibility(View.GONE);
+        webView.reload();
     }
 
 

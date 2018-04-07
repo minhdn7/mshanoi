@@ -222,8 +222,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         // Report to the UI that the location was updated
 
         mCurrentLocation = location;
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
+//        latitude = location.getLatitude();
+//        longitude = location.getLongitude();
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
@@ -284,6 +284,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
             } else {
                 map.setMyLocationEnabled(true);
             }
+//            onLocationChanged(homeActivity.mLastLocation);
+//            Location location = new Location(latitude, longitude);
             onLocationChanged(homeActivity.mLastLocation);
             addDiaDiem();
             addMarkerEvents();

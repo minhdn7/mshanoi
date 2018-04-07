@@ -207,5 +207,8 @@
     <string name="str_oke">Oke</string>
     <string name="str_reload">Thử lại</string>
     <string name="str_cancel">Hủy bỏ</string>
+    <string name="str_noConnect">Không thể kết nối được đến hệ thống, xin quý đồng dâm kiểm tra lại kết nối internet(wifi, 3G), và thử lại!</string>
+    <string name="str_share">Chia sẻ</string>
+    <string name="str_user_polycy">Điều khoản sử dụng</string>
 
 </resources>

@@ -34,7 +34,7 @@ public class StartActivity extends BaseActivity {
             showProgressBar();
             getDataFireBase();
         }else{
-            showDialogCheckInternet("Không thể kết nối được đến hệ thống, xin quý đồng dâm kiểm tra lại kết nối internet(wifi, 3G), và thử lại");
+            showDialogCheckInternet("Không thể kết nối được đến hệ thống, xin quý đồng dâm kiểm tra lại kết nối internet(wifi, 3G), và thử lại!");
         }
     }
 

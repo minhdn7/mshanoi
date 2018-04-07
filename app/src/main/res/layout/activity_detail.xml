@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activity.DetailActivity">
     <ScrollView
         android:layout_width="match_parent"
@@ -15,37 +16,33 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="200dp"
             android:orientation="vertical">
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imgAnhDaiDien"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/nha_nghi_3"/>
+                android:layout_height="220dp">
 
+                <ss.com.bannerslider.views.BannerSlider
+                    android:id="@+id/banner_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:interval="5000" />
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/md_black"
-                    android:alpha="0.2"/>
-
-                <ImageView
-                    android:id="@+id/imgGoogleStaticMap"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="fitXY" />
+                    android:alpha="0.2"
+                    android:background="@color/md_black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:text="Massage Hà Nội"
+                    android:textAllCaps="true"
+                    android:textColor="@color/md_white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/lvDanhSachPhongNoiBat"
-                android:scrollbars="horizontal"
-                android:layout_width="match_parent"
-                style="@style/scrollbar_shape_style"
-                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,9 +77,13 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/md_grey_300"/>
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="200dp">
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:id="@+id/imgGoogleStaticMap"/>
                 <Button
                     android:layout_width="100dp"
                     android:layout_height="30dp"

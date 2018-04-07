@@ -74,7 +74,7 @@ public class BaseFragment extends Fragment implements Validator.ValidationListen
     }
 
     protected void injectDependencies() {
-//        ((LineApplication) getActivity().getApplication()).inject(this);
+        ((LineApplication) getActivity().getApplication()).inject(this);
     }
     public boolean isConnectedNetwork() {
         ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

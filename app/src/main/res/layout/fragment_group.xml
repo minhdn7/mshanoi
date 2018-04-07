@@ -7,5 +7,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/webView"/>
-
+    <LinearLayout
+        android:id="@+id/view_connect_fail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/md_white"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="8dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_noConnect"
+            android:textColor="@color/md_blue_500"
+            android:textSize="16sp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_voz_1"/>
+        <Button
+            android:id="@+id/btn_reload"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_button_blue_700"
+            android:textColor="@color/md_white"
+            android:layout_margin="8dp"
+            android:text="ReLoad" />
+    </LinearLayout>
 </RelativeLayout>

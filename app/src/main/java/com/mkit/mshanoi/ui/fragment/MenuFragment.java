@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mkit.mshanoi.R;
+import com.mkit.mshanoi.app.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +19,7 @@ import com.mkit.mshanoi.R;
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends BaseFragment {
 
 
     private OnFragmentInteractionListener mListener;

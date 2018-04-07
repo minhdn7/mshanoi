@@ -127,7 +127,7 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
         }
     }
     protected void injectDependencies() {
-//        ((LineApplication) getApplication()).inject(this);
+        ((LineApplication) getApplication()).inject(this);
     }
 
     public boolean isConnectedNetwork() {

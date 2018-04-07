@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,16 +26,18 @@ import com.willy.ratingbar.ScaleRatingBar;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.DrawableBanner;
+import ss.com.bannerslider.views.BannerSlider;
 
 public class DetailActivity extends BaseActivity {
 
-    @BindView(R.id.imgAnhDaiDien)
-    ImageView imgAnhDaiDien;
-    @BindView(R.id.lvDanhSachPhongNoiBat)
-    RecyclerView lvDanhSachPhongNoiBat;
     @BindView(R.id.txtTenNhaNghi)
     TextView txtTenNhaNghi;
     @BindView(R.id.btnLoaiHinh)
@@ -67,7 +68,9 @@ public class DetailActivity extends BaseActivity {
     TextView txtGiaTic;
     @BindView(R.id.viewChonDanhSachPhong)
     LinearLayout viewChonDanhSachPhong;
-
+    @BindView(R.id.banner_slider)
+    BannerSlider bannerSlider;
+    List<Banner> banners = new ArrayList<>();
     private DiaDiemMsResponse diaDiemMSDetail;
     // get tọa độ
     private double latitude = 0;
@@ -81,8 +84,19 @@ public class DetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
         addControls();
+        addBanner();
         addEvents();
 
+    }
+
+    private void addBanner() {
+        banners.add(new DrawableBanner(R.drawable.ms_1));
+        banners.add(new DrawableBanner(R.drawable.ms_2));
+        banners.add(new DrawableBanner(R.drawable.ms_3));
+        banners.add(new DrawableBanner(R.drawable.ms_4));
+        banners.add(new DrawableBanner(R.drawable.ms_5));
+        banners.add(new DrawableBanner(R.drawable.ms_6));
+        bannerSlider.setBanners(banners);
     }
 
 
@@ -218,9 +232,9 @@ public class DetailActivity extends BaseActivity {
 
     @OnClick(R.id.btnCall)
     public void onViewClicked() {
-        if(diaDiemMSDetail != null && diaDiemMSDetail.getPhone() != null && !diaDiemMSDetail.getPhone().trim().equals("")){
+        if (diaDiemMSDetail != null && diaDiemMSDetail.getPhone() != null && !diaDiemMSDetail.getPhone().trim().equals("")) {
 
-        }else {
+        } else {
             showDialog("Cơ sở có số điện thoại chưa được xác minh, Không thể thực hiện cuộc gọi!");
         }
     }

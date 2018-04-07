@@ -7,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mkit.mshanoi.R;
@@ -28,6 +32,8 @@ import butterknife.OnClick;
 
 public class DanhSachMsFragment extends BaseFragment {
 
+    @BindView(R.id.view_connect_fail)
+    LinearLayout viewConnectFail;
     private OnFragmentInteractionListener mListener;
     @BindView(R.id.lvDanhSachMS)
     ListView lvDanhSachMS;
@@ -59,13 +65,10 @@ public class DanhSachMsFragment extends BaseFragment {
 //                    DanhSachMsAdapter danhSachMsAdapter = new DanhSachMsAdapter(getActivity(), R.layout.item_danh_sach_ms, danhSachDiaDiem);
 //                    lvDanhSachMS.setAdapter(danhSachMsAdapter);
             }
+            viewConnectFail.setVisibility(View.GONE);
             webView.getSettings().setJavaScriptEnabled(true);
-            if (!isConnectedNetwork()) {
-                webView.loadUrl("file:///android_asset/CoinMarketCap_2.html");
-            } else {
-//                webView.loadUrl("http://mshanoi.com/category/list-tong-hop/");
-                webView.loadUrl("file:///android_asset/mshanoi_2.html");
-            }
+            webView.loadUrl("file:///android_asset/mshanoi_2.html");
+
 
             // load link in webview
             this.webView.setWebViewClient(new WebViewClient() {
@@ -78,8 +81,7 @@ public class DanhSachMsFragment extends BaseFragment {
 
                 // remove header in webview
                 @Override
-                public void onPageFinished(WebView view, String url)
-                {
+                public void onPageFinished(WebView view, String url) {
                     webView.loadUrl("javascript:(function() { " +
                             "var head = document.getElementsByTagName('header')[0];"
                             + "head.parentNode.removeChild(head);" +
@@ -89,10 +91,21 @@ public class DanhSachMsFragment extends BaseFragment {
 
                 @Override
                 public void onPageStarted(
-                        WebView view, String url, Bitmap favicon)
-                {
+                        WebView view, String url, Bitmap favicon) {
                     showProgressBar();
                 }
+
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    super.onReceivedError(view, request, error);
+                    if(!isConnectedNetwork()){
+                        viewConnectFail.setVisibility(View.VISIBLE);
+                    }else {
+                        viewConnectFail.setVisibility(View.GONE);
+                    }
+                }
+
+
             });
             // end
 
@@ -103,6 +116,11 @@ public class DanhSachMsFragment extends BaseFragment {
     }
 
 
+    @OnClick(R.id.btn_reload)
+    public void onViewClicked() {
+        viewConnectFail.setVisibility(View.GONE);
+        webView.reload();
+    }
 
 
     /**
