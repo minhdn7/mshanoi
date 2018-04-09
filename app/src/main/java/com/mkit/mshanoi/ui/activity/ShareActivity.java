@@ -38,6 +38,7 @@ public class ShareActivity extends BaseActivity {
         setContentView(R.layout.activity_share);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        addControls();
     }
 
     private void addControls() {

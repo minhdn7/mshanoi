@@ -45,43 +45,45 @@ public class IntroActivity extends AppIntro {
         TinyDB tinydb = new TinyDB(this);
 
         try{
-
-            if(tinydb.getBoolean(SharePrefDefine.IS_INTRODUCE)){
+            boolean isIntroDuce = tinydb.getBoolean(SharePrefDefine.IS_INTRODUCE);
+            if(!isIntroDuce){
                 SliderPage sliderPage1 = new SliderPage();
                 sliderPage1.setTitle("Xin chào!");
-                sliderPage1.setDescription("Chúng tôi là Vnpt Software");
-                sliderPage1.setImageDrawable(R.drawable.nha_nghi_1);
-                sliderPage1.setBgColor(Color.CYAN);
+                sliderPage1.setDescription("Đây là ứng dụng review về các địa điểm massagge trên địa bàn thủ đô Hà Nội!");
+                sliderPage1.setImageDrawable(R.drawable.ms_1);
+                sliderPage1.setBgColor(Color.MAGENTA);
                 addSlide(AppIntroFragment.newInstance(sliderPage1));
 
                 SliderPage sliderPage2 = new SliderPage();
                 sliderPage2.setTitle("Giới thiệu");
-                sliderPage2.setDescription("Chúng tôi đến đây để mang lại cho các bạn 1 giải pháp về tìm kiếm nhà nghỉ, nhà trọ cho thuê với giá cả hợp lý nhất");
-                sliderPage2.setImageDrawable(R.drawable.nha_nghi_1);
-                sliderPage2.setBgColor(Color.CYAN);
+                sliderPage2.setDescription("Ứng dụng mang lại cho các bạn 1 giải pháp về tìm kiếm những địa chỉ massage tại Hà Nội với giá cả hợp lý nhất, đi kèm dịch vụ tốt nhất");
+                sliderPage2.setImageDrawable(R.drawable.ms_2);
+                sliderPage2.setBgColor(Color.MAGENTA);
                 addSlide(AppIntroFragment.newInstance(sliderPage2));
 
                 SliderPage sliderPage3 = new SliderPage();
                 sliderPage3.setTitle("Giới thiệu");
-                sliderPage3.setDescription("Chúng tôi gọi nó là Vnpt Line");
-                sliderPage3.setImageDrawable(R.drawable.nha_nghi_1);
-                sliderPage3.setBgColor(Color.CYAN);
+                sliderPage3.setDescription("Các bài review được phân tích đa chiều từ các đồng dâm đi trước với những đánh giá khách quan về cơ sở vật chất, nhân viên, giá tip, giá tic...");
+                sliderPage3.setImageDrawable(R.drawable.ms_4);
+                sliderPage3.setBgColor(Color.MAGENTA);
                 addSlide(AppIntroFragment.newInstance(sliderPage3));
 
                 SliderPage sliderPage4 = new SliderPage();
                 sliderPage4.setTitle("Hành trình");
                 sliderPage4.setDescription("Nào, hãy cùng bắt đầu và trải nghiệm với chúng tôi!");
-                sliderPage4.setImageDrawable(R.drawable.nha_nghi_1);
-                sliderPage4.setBgColor(Color.CYAN);
+                sliderPage4.setImageDrawable(R.drawable.ms_4);
+                sliderPage4.setBgColor(Color.MAGENTA);
                 addSlide(AppIntroFragment.newInstance(sliderPage4));
-                tinydb.putBoolean(SharePrefDefine.IS_INTRODUCE, false);
+                tinydb.putBoolean(SharePrefDefine.IS_INTRODUCE, true);
+                return;
             }else {
                 Intent intent = new Intent(this, StartActivity.class);
                 startActivity(intent);
             }
 
         }catch (Exception ex){
-
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
         }
         
     }
