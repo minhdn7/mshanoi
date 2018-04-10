@@ -17,6 +17,9 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.mkit.mshanoi.R;
 import com.mkit.mshanoi.app.BaseActivity;
 import com.mkit.mshanoi.domain.model.pojo.response.DiaDiemMsResponse;
@@ -88,6 +91,7 @@ public class DetailActivity extends BaseActivity {
         addEvents();
 
     }
+
 
     private void addBanner() {
         banners.add(new DrawableBanner(R.drawable.ms_1));

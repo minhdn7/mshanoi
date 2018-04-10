@@ -37,6 +37,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -96,7 +98,8 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
  * create an instance of this fragment.
  */
 public class MapFragment extends BaseFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-
+    public InterstitialAd mInterstitialAd;
+    public String ADS_INTER = "ca-app-pub-7343050714013437/7427694694";
     private OnFragmentInteractionListener mListener;
     private SupportMapFragment mapFragment;
     private GoogleMap map;
@@ -140,6 +143,9 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(ADS_INTER);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     @Override
@@ -152,11 +158,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         addControls(view);
         addEvents();
+
         return view;
     }
 
     private void addEvents() {
-
 
     }
 
@@ -407,6 +413,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         viewDialogNhaNghi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
                 DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
                 EventBus.getDefault().postSticky(diaDiemMsEvent);
                 Intent intent = new Intent(getActivity(), DetailActivity.class);

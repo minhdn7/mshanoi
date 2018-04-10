@@ -27,6 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.analytics.Tracker;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mkit.mshanoi.R;
@@ -59,6 +63,11 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
     public TinyDB tinyDB;
     MaterialDialog dialog;
     private android.app.AlertDialog alertDialog;
+    // ads
+    public AdView mAdView;
+    public InterstitialAd mInterstitialAd;
+    public String ADS_BANNER = "ca-app-pub-7343050714013437/4101805153";
+    public String ADS_INTER = "ca-app-pub-7343050714013437/7427694694";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,26 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
 //        googleAnalyticEvent();
         injectDependencies();
         tinyDB = new TinyDB(this);
+        try {
+            mInterstitialAd = new InterstitialAd(this);
+            mAdView = new AdView(this);
+            mAdView.setAdSize(AdSize.SMART_BANNER);
+            mAdView.setAdUnitId(ADS_BANNER);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initAds() {
+        try {
+
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -85,7 +114,7 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
-
+        initAds();
     }
 
     @Override

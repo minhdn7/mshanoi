@@ -31,8 +31,8 @@
     <style name="AppTheme.CustomActionBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
-        <item name="colorPrimary">@color/md_blue_700</item>
-        <item name="colorPrimaryDark">@color/md_blue_700</item>
+        <item name="colorPrimary">@color/md_custom_purple_400</item>
+        <item name="colorPrimaryDark">@color/md_custom_purple_400</item>
         <item name="colorAccent">#E91E63</item>
     </style>
 

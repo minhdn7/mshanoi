@@ -16,6 +16,9 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -98,8 +101,17 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.Connec
         setTitle("Massage Hà Nội");
         addControls();
         addGooglePermission();
+//        initAds();
     }
 
+    private void initAds() {
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(ADS_BANNER);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
 
 
     private void addControls() {
