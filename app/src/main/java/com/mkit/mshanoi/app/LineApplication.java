@@ -1,6 +1,8 @@
 package com.mkit.mshanoi.app;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.mkit.mshanoi.app.di.AppModule;
@@ -14,7 +16,7 @@ import lombok.Setter;
  * Created by MinhDN on 28/12/2017.
  */
 
-public class LineApplication extends Application {
+public class LineApplication extends MultiDexApplication {
 
     @Getter private String baseUrl;
     public static final String apiBaseUrl = "http://10.145.40.188:8888/";

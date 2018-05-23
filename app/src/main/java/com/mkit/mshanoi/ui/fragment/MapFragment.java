@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
@@ -415,13 +416,50 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
             public void onClick(View v) {
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
+                    mInterstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdLoaded() {
+                            // Code to be executed when an ad finishes loading.
+                            DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
+                            EventBus.getDefault().postSticky(diaDiemMsEvent);
+                            Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onAdFailedToLoad(int errorCode) {
+                            // Code to be executed when an ad request fails.
+
+                        }
+
+                        @Override
+                        public void onAdOpened() {
+                            // Code to be executed when the ad is displayed.
+                        }
+
+                        @Override
+                        public void onAdLeftApplication() {
+                            // Code to be executed when the user has left the app.
+                        }
+
+                        @Override
+                        public void onAdClosed() {
+                            // Code to be executed when when the interstitial ad is closed.
+                            DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
+                            EventBus.getDefault().postSticky(diaDiemMsEvent);
+                            Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            startActivity(intent);
+
+                        }
+                    });
                 } else {
                     Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
+                    EventBus.getDefault().postSticky(diaDiemMsEvent);
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    startActivity(intent);
                 }
-                DiaDiemMsEvent diaDiemMsEvent = new DiaDiemMsEvent(diaDiemMsResponse);
-                EventBus.getDefault().postSticky(diaDiemMsEvent);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                startActivity(intent);
+
             }
         });
 

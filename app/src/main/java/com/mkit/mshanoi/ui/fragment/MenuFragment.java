@@ -64,7 +64,7 @@ public class MenuFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.btnShare, R.id.btnPolicy})
+    @OnClick({R.id.btnShare, R.id.btnPolicy, R.id.btnRate})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnShare:
@@ -72,6 +72,15 @@ public class MenuFragment extends BaseFragment {
                 break;
             case R.id.btnPolicy:
                 startActivity(new Intent(getActivity(), PolicyActivity.class));
+                break;
+            case R.id.btnRate:
+                try {
+                    final String appPackageName = getActivity().getPackageName(); // getPackageName() from Context or Activity object
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 break;
         }
     }
